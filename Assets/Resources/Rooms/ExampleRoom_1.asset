@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81deb94024cfc6e4e83d3b145fcc6c5f, type: 3}
+  m_Name: ExampleRoom_1
+  m_EditorClassIdentifier: 
+  RoomSnap:
+    HasEntranceNorth: 0
+    HasEntranceEast: 0
+    HasEntranceSouth: 0
+    HasEntranceWest: 0
+  RoomPrefab: {fileID: 3950348057672648221, guid: ae9702d2a2b394b42b6b65e867d13700, type: 3}
+  EntrancePositions:
+  - {x: 0, y: 0, z: 0}
+  - {x: 10, y: 0, z: 10}
