@@ -11,13 +11,13 @@
 
         public void Start()
         {
-            CurrentState = States[States.First().Key];
-            CurrentState?.OnEnter();
+            ChangeState(States.First().Key);
         }
 
         public void Stop()
         {
             CurrentState?.OnExit();
+            CurrentState = null;
         }
 
         public void Update()

@@ -1,3 +1,4 @@
+#if UNITY_EDITOR
 namespace RBS.Room.Data
 {
     public enum RBSEntranceType
@@ -9,3 +10,4 @@ namespace RBS.Room.Data
         West
     }
 }
+#endif

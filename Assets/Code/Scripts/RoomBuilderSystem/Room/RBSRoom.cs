@@ -8,12 +8,13 @@ namespace RBS.Room
     public class RBSRoom : MonoBehaviour
     {
         private Collider _collider;
+        private RBSRoomData _roomData;
 
-        public RBSRoomSnap RoomSnap { get; private set; }
+        public RBSRoomSnap RoomSnap => _roomData.RoomSnap;
 
-        public void Init(RBSRoomSnap rbsRoomSnap)
+        public void Init(RBSRoomData roomData)
         {
-            RoomSnap = rbsRoomSnap;
+            _roomData = roomData;
             TryGetComponent(out _collider);
             GenerateEntrances();
         }

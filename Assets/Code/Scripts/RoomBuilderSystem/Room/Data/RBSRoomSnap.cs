@@ -1,4 +1,5 @@
-﻿namespace RBS.Room.Data
+﻿#if UNITY_EDITOR
+namespace RBS.Room.Data
 {
     using UnityEngine;
     using System.Collections.Generic;
@@ -12,3 +13,4 @@
         public bool HasEntranceWest;
     }
 }
+#endif

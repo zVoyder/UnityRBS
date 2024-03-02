@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 81deb94024cfc6e4e83d3b145fcc6c5f, type: 3}
-  m_Name: ExampleRoom_1
+  m_Name: ExampleRoom_2
   m_EditorClassIdentifier: 
   RoomSnap:
     HasEntranceNorth: 1
-    HasEntranceEast: 0
+    HasEntranceEast: 1
     HasEntranceSouth: 1
-    HasEntranceWest: 0
-  RoomPrefab: {fileID: 3950348057672648221, guid: ae9702d2a2b394b42b6b65e867d13700, type: 3}
+    HasEntranceWest: 1
+  RoomPrefab: {fileID: 5413576407953822521, guid: 6f047a4fcf8f4e747aaff58a2a7e1536, type: 3}

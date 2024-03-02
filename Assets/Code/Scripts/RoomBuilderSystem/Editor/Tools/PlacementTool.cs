@@ -3,7 +3,7 @@
     using UnityEditor;
     using UnityEngine;
     using RBS.Room;
-    using RBS.Editor.Data;
+    using RBS.Room.Data;
     using RBS.Editor.Tools.Bases;
     using RBS.Editor.Tools.Elements;
     using RBS.Editor.Utility;
@@ -160,7 +160,7 @@
 
                 RBSRoom room = placedGameobject.AddComponent<RBSRoom>();
                 room.hideFlags = HideFlags.HideInInspector | HideFlags.DontSaveInBuild;
-                room.Init(CurrentRoomData.RoomSnap);
+                room.Init(CurrentRoomData);
                 Undo.RegisterCreatedObjectUndo(placedGameobject, "Placed Room");
             }
         }

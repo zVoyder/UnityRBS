@@ -37,7 +37,7 @@ namespace RBS.Editor.Windows
             _placement = new PlacementTool(this, RBSConstants.PlacementToolName);
             _roomsRegisterTool = new RoomsRegisterTool(this, RBSConstants.RoomToolName);
             _snapTool = new SnapTool(this, RBSConstants.SnapToolName);
-            
+
             _editorMachine.States.Add(RBSConstants.PlacementToolName, _placement);
             _editorMachine.States.Add(RBSConstants.RoomToolName, _roomsRegisterTool);
             _editorMachine.States.Add(RBSConstants.SnapToolName, _snapTool);
@@ -77,21 +77,21 @@ namespace RBS.Editor.Windows
                     break;
             }
 
-#if DEBUG
-            if (GUILayout.Button("Delete Hide Previews"))
-            {
-                var allObjects = FindObjectsOfType<GameObject>();
-
-                foreach (var obj in allObjects)
-                {
-                    if (obj.hideFlags == HideFlags.HideInHierarchy)
-                    {
-                        Debug.Log("Destroying: " + obj.name);
-                        DestroyImmediate(obj);
-                    }
-                }
-            }
-#endif
+// #if DEBUG
+//             if (GUILayout.Button("Delete Hide Previews"))
+//             {
+//                 var allObjects = FindObjectsOfType<GameObject>();
+//
+//                 foreach (var obj in allObjects)
+//                 {
+//                     if (obj.hideFlags == HideFlags.HideInHierarchy)
+//                     {
+//                         Debug.Log("Destroying: " + obj.name);
+//                         DestroyImmediate(obj);
+//                     }
+//                 }
+//             }
+// #endif
         }
     }
 }

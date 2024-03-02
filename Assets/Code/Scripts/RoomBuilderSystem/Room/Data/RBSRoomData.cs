@@ -1,4 +1,5 @@
-﻿namespace RBS.Editor.Data
+﻿#if UNITY_EDITOR
+namespace RBS.Room.Data
 {
     using System.Collections.Generic;
     using UnityEngine;
@@ -8,13 +9,12 @@
     {
         public RBSRoomSnap RoomSnap;
         public GameObject RoomPrefab;
-        public List<Vector3> EntrancePositions;
         
-        public void Init(GameObject roomPrefab, RBSRoomSnap roomSnap, List<Vector3> entrancePositions)
+        public void Init(GameObject roomPrefab, RBSRoomSnap roomSnap)
         {
             RoomPrefab = roomPrefab;
             RoomSnap = roomSnap;
-            EntrancePositions = entrancePositions;
         }
     }
 }
+#endif

@@ -4,16 +4,14 @@
     using UnityEditor;
     using UnityEngine;
     using RBS.Editor.Constants;
-    using RBS.Editor.Data;
     using RBS.Room.Data;
 
     public static class RBSIOUtility
     {
-        public static void CreateRoomAsset(GameObject roomPrefab, RBSRoomSnap roomSnap, List<Vector3> entrancePositions)
+        public static void CreateRoomAsset(GameObject roomPrefab, RBSRoomSnap roomSnap)
         {
             RBSRoomData asset = ScriptableObject.CreateInstance<RBSRoomData>();
-            asset.Init(roomPrefab, roomSnap, entrancePositions);
-
+            asset.Init(roomPrefab, roomSnap);
             SaveAsset(asset, RBSConstants.RoomDataAssetPath, roomPrefab.name);
         }
 

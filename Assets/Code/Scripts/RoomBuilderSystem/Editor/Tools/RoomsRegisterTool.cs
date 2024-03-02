@@ -5,16 +5,12 @@
     using UnityEngine;
     using RBS.Room.Data;
     using RBS.Editor.Tools.Bases;
-    using RBS.Editor.Data;
     using RBS.Editor.Utility;
 
     public class RoomsRegisterTool : ToolBase
     {
         private RBSRoomData[] _rooms;
-
         private RBSRoomSnap _roomSnap;
-        private List<Vector3> _roomEntrances;
-
         private GameObject _selectedRoomPrefab;
         private bool _isRoomListShowed;
         private bool _isRoomSnapShowed;
@@ -23,7 +19,6 @@
         public RoomsRegisterTool(EditorWindow parentWindow, string stateKey) : base(parentWindow, stateKey)
         {
             UpdateRooms();
-            _roomEntrances = new List<Vector3>();
         }
 
         public override void OnEnter()
@@ -76,21 +71,16 @@
 
                 RBSEditorUtility.DrawDisabledGroup(() =>
                 {
-                    // RBSEditorUtility.DrawFoldout(ref _isRoomSnapShowed, "Room Snap", () =>
-                    // {
-                    //     _roomSnap.HasEntranceNorth = EditorGUILayout.Toggle("Has Entrance North", _roomSnap.HasEntranceNorth);
-                    //     _roomSnap.HasEntranceSouth = EditorGUILayout.Toggle("Has Entrance South", _roomSnap.HasEntranceSouth);
-                    //     _roomSnap.HasEntranceEast = EditorGUILayout.Toggle("Has Entrance East", _roomSnap.HasEntranceEast);
-                    //     _roomSnap.HasEntranceWest = EditorGUILayout.Toggle("Has Entrance West", _roomSnap.HasEntranceWest);
-                    // });
-
                     RBSEditorUtility.DrawIndented(1, () =>
                     {
                         RBSEditorUtility.DrawBox(Color.white, () =>
                         {
-                            RBSEditorUtility.DrawFoldout(ref _isRoomEntrancesShowed, "Entrances", () =>
+                            RBSEditorUtility.DrawFoldout(ref _isRoomSnapShowed, "Room Snap", () =>
                             {
-                                RBSEditorUtility.DrawVector3ListField(ref _roomEntrances, "Entrances");
+                                _roomSnap.HasEntranceNorth = EditorGUILayout.Toggle("Has Entrance North", _roomSnap.HasEntranceNorth);
+                                _roomSnap.HasEntranceSouth = EditorGUILayout.Toggle("Has Entrance South", _roomSnap.HasEntranceSouth);
+                                _roomSnap.HasEntranceEast = EditorGUILayout.Toggle("Has Entrance East", _roomSnap.HasEntranceEast);
+                                _roomSnap.HasEntranceWest = EditorGUILayout.Toggle("Has Entrance West", _roomSnap.HasEntranceWest);
                             });
                         });
                     });
@@ -108,7 +98,7 @@
 
         private void CreateRoom()
         {
-            RBSIOUtility.CreateRoomAsset(_selectedRoomPrefab, _roomSnap, _roomEntrances);
+            RBSIOUtility.CreateRoomAsset(_selectedRoomPrefab, _roomSnap);
             _selectedRoomPrefab = null;
             UpdateRooms();
         }
