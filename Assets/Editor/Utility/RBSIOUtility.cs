@@ -1,6 +1,7 @@
 ﻿namespace RBS.Editor.Utility
 {
     using System.Collections.Generic;
+    using System.IO;
     using Data;
     using UnityEditor;
     using UnityEngine;
@@ -26,6 +27,9 @@
         
         public static void SaveAsset(ScriptableObject asset, string path, string assetName)
         {
+            if(!Directory.Exists(path))
+                Directory.CreateDirectory(path);
+            
             string fullPath = AssetDatabase.GenerateUniqueAssetPath(path + assetName + ".asset");
             AssetDatabase.CreateAsset(asset, fullPath);
             EditorUtility.SetDirty(asset);
