@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 722364c7cfd74bb88ea5cc8499e0fe78, type: 3}
+  m_Name: Preset_[ExampleRoom_2]_1
+  m_EditorClassIdentifier: 
+  RoomsList:
+  - RoomName: ExampleRoom_2
+    RoomData: {fileID: 11400000, guid: cda25670674594b4f8f5fe1c4f2d59fa, type: 2}
+    Position: {x: -93.3348, y: 20, z: 115.4177}
+    Rotation: {x: -0, y: -1, z: -0, w: 0}
+  - RoomName: ExampleRoom_2
+    RoomData: {fileID: 11400000, guid: cda25670674594b4f8f5fe1c4f2d59fa, type: 2}
+    Position: {x: -93.3348, y: 20, z: 106.6679}
+    Rotation: {x: -0, y: -1, z: -0, w: 0}
+  - RoomName: ExampleRoom_2
+    RoomData: {fileID: 11400000, guid: cda25670674594b4f8f5fe1c4f2d59fa, type: 2}
+    Position: {x: -93.3348, y: 20, z: 101.05566}
+    Rotation: {x: -0, y: -0.7071068, z: -0, w: 0.7071068}
+  - RoomName: ExampleRoom_1
+    RoomData: {fileID: 11400000, guid: 1358b5deb2c123f429275ecbb4079d97, type: 2}
+    Position: {x: -93.3348, y: 20, z: 96.979866}
+    Rotation: {x: -0, y: -0, z: -0, w: 1}
+  - RoomName: ExampleRoom_1
+    RoomData: {fileID: 11400000, guid: 1358b5deb2c123f429275ecbb4079d97, type: 2}
+    Position: {x: -93.3348, y: 20, z: 91.30297}
+    Rotation: {x: -0, y: -0, z: -0, w: 1}
+  - RoomName: ExampleRoom_0
+    RoomData: {fileID: 11400000, guid: 662ad72a7f1492e448947c906a34ea9b, type: 2}
+    Position: {x: -93.3348, y: 20, z: 85.626076}
+    Rotation: {x: -0, y: -0, z: -0, w: -1}

@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81deb94024cfc6e4e83d3b145fcc6c5f, type: 3}
+  m_Name: forest_house_model
+  m_EditorClassIdentifier: 
+  RoomSnap:
+    HasEntranceNorth: 1
+    HasEntranceEast: 1
+    HasEntranceSouth: 1
+    HasEntranceWest: 1
+  RoomPrefab: {fileID: 6741840604649999883, guid: ecc34d4837a4bf04fa89585702b21935, type: 3}
