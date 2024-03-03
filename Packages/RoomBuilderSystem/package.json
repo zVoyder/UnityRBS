@@ -1,15 +1,13 @@
 {
   "name": "com.voydergames.room-builder-system",
   "version": "0.1.0",
-  "displayName": "Room Builder",
+  "displayName": "Room Builder System",
   "description": "Room Builder System is tool that allows you to easily place rooms in a scene.",
   "unity": "2022.3",
   "unityRelease": "10f1",
   "documentationUrl": "",
   "changelogUrl": "",
   "licensesUrl": "",
-  "dependencies": {
-  },
   "keywords": [
     "Room",
     "Builder",
