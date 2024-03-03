@@ -3,8 +3,6 @@ namespace RBS.Runtime.Room
 {
     using UnityEngine;
     using RBS.Runtime.Room.Data;
-    using Unity.VisualScripting;
-    using UnityEngine.Serialization;
 
     public class RBSRoom : MonoBehaviour
     {
@@ -42,7 +40,7 @@ namespace RBS.Runtime.Room
         private void GenerateEntrance(Vector3 position, RBSEntranceType entranceType)
         {
             GameObject entrGO = new GameObject("Entrance");
-            entrGO.hideFlags = HideFlags.DontSaveInBuild /*| HideFlags.HideInHierarchy*/;
+            entrGO.hideFlags = HideFlags.DontSaveInBuild | HideFlags.HideInHierarchy;
             RBSEntrance entrance = entrGO.AddComponent<RBSEntrance>();
             entrance.Init(transform, position);
         }

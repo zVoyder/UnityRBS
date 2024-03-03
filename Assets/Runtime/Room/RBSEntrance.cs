@@ -1,10 +1,9 @@
 #if UNITY_EDITOR
 namespace RBS.Runtime.Room
 {
-    using Data;
-    using Unity.VisualScripting;
     using UnityEngine;
     using UnityEditor;
+    using RBS.Runtime.Room.Data;
     
     public class RBSEntrance : MonoBehaviour
     {
