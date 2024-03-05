@@ -7,7 +7,7 @@
     using RBS.Editor.Tools.Bases;
     using RBS.Editor.Tools.Elements;
     using RBS.Editor.Utility;
-    using static RBS.Editor.Utility.RBSPrefs;
+    using RBS.Editor.Config;
 
     public class PlacementTool : RBSToolBase
     {
@@ -25,7 +25,7 @@
         {
             _previewDragger = new RBSPreviewDragger();
         }
-
+        
         public override void OnEnter()
         {
             UpdateRoomsData();
@@ -72,7 +72,7 @@
             {
                 DrawSelector();
                 _previewDragger.EnableDrag();
-                _previewDragger.Drag(view.camera, PlaceHeight);
+                _previewDragger.Drag(view.camera, RBSPrefs.PlaceHeight);
             }
             else
             {
@@ -82,19 +82,28 @@
 
         #region GUI
 
+        /// <summary>
+        /// Draws the fields.
+        /// </summary>
         private void DrawFields()
         {
             s_canPlace = EditorGUILayout.Toggle("Enable Place", s_canPlace);
-            RotationStep = EditorGUILayout.FloatField("Rotation Step", RotationStep);
-            PlaceHeight = EditorGUILayout.FloatField("Place Height", PlaceHeight);
+            RBSPrefs.RotationStep = EditorGUILayout.FloatField("Rotation Step", RBSPrefs.RotationStep);
+            RBSPrefs.PlaceHeight = EditorGUILayout.FloatField("Place Height", RBSPrefs.PlaceHeight);
         }
 
+        /// <summary>
+        /// Draws the buttons.
+        /// </summary>
         private void DrawButtons()
         {
             if (GUILayout.Button("Delete All Rooms"))
                 DeleteRooms();
         }
 
+        /// <summary>
+        /// Draws the help box.
+        /// </summary>
         private void DrawHelpBox()
         {
             RBSEditorUtility.DrawSpace(10);
@@ -107,6 +116,9 @@
                 "    SHIFT + F -> Reset Room Height.", MessageType.Info);
         }
 
+        /// <summary>
+        /// Draws the room selector.
+        /// </summary>
         private void DrawSelector()
         {
             Handles.BeginGUI();
@@ -129,49 +141,81 @@
 
         #endregion GUI
 
-        private void AddHeight(float value)
+        /// <summary>
+        /// Adds the height to the current place height.
+        /// </summary>
+        /// <param name="height"> The height value to add. </param>
+        private void AddHeight(float height)
         {
-            SetHeight(RBSPrefs.PlaceHeight + value);
+            SetHeight(RBSPrefs.PlaceHeight + height);
         }
 
-        public void SetHeight(float value)
+        /// <summary>
+        /// Sets the place height.
+        /// </summary>
+        /// <param name="height"> The height value to set. </param>
+        public void SetHeight(float height)
         {
-            PlaceHeight = value;
+            RBSPrefs.PlaceHeight = height;
             ParentWindow.Repaint(); // Draw the window again to update the value
         }
 
+        /// <summary>
+        /// Toggles the can place value.
+        /// </summary>
         private void ToggleCanPlace()
         {
             s_canPlace = !s_canPlace;
             ParentWindow.Repaint();
         }
 
+        /// <summary>
+        /// Deletes all the rooms in the scene.
+        /// </summary>
         private void DeleteRooms()
         {
             RBSObjectsUtility.DeleteRooms();
         }
 
+        /// <summary>
+        /// Places the preview prefab in the scene.
+        /// </summary>
+        /// <param name="screenMousePosition"> The screen mouse position. </param>
         private void PlacePrefab(Vector2 screenMousePosition)
         {
             if (_previewDragger.CanPlacePrefab(out Vector3 position, out Quaternion rotation))
                 RBSObjectsUtility.InstantiateRoom(CurrentRoomData, position, rotation);
         }
-
+        
+        /// <summary>
+        /// Rotates the preview.
+        /// </summary>
+        /// <param name="scrollDirection"> The scroll direction. </param>
         private void RotatePreview(float scrollDirection)
         {
-            _previewDragger.RotatePreview(scrollDirection * RotationStep);
+            _previewDragger.RotatePreview(scrollDirection * RBSPrefs.RotationStep);
         }
 
+        /// <summary>
+        /// Resets the height preview.
+        /// </summary>
         private void ResetHeightPreview()
         {
             SetHeight(0f);
         }
 
+        /// <summary>
+        /// Resets the preview rotation.
+        /// </summary>
         private void ResetPreviewRotation()
         {
             _previewDragger.SetPreviewRotation(Quaternion.identity);
         }
 
+        /// <summary>
+        /// Selects a prefab preview in the array.
+        /// </summary>
+        /// <param name="index"> The index of the prefab to select. </param>
         private void SelectPrefabPreview(int index)
         {
             if (index < 0 || index >= _rooms.Length)
@@ -185,6 +229,9 @@
             _previewDragger.SetAsPreview(CurrentRoomData);
         }
 
+        /// <summary>
+        /// Updates the rooms data.
+        /// </summary>
         private void UpdateRoomsData()
         {
             _rooms = RBSIOUtility.GetRoomsData();

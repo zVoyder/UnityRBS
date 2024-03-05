@@ -5,6 +5,7 @@
     using RBS.Runtime.Room.Data;
     using RBS.Runtime.Room;
     using RBS.Editor.Utility;
+    using RBS.Editor.Config;
 
     public class RBSPreviewDragger
     {
@@ -27,16 +28,21 @@
             };
         }
 
+        /// <summary>
+        /// Sets the room as a preview to be dragged.
+        /// </summary>
+        /// <param name="room"> The room to be set as a preview. </param>
         public void SetAsPreview(RBSRoomData room)
         {
             _currentRoomData = room;
             _prefabAsPreview = room.RoomPrefab;
-            if (_prefabAsPreview.TryGetComponent(out Renderer renderer))
-                _previewBounds = renderer.bounds;
             DisableDrag();
             EnableDrag();
         }
 
+        /// <summary>
+        /// Enables the dragging of the preview.
+        /// </summary>
         public void EnableDrag()
         {
             if (_isDragging) return;
@@ -46,6 +52,9 @@
             InstantiatePreview(_prefabAsPreview);
         }
 
+        /// <summary>
+        /// Disables the dragging of the preview.
+        /// </summary>
         public void DisableDrag()
         {
             if (!_isDragging) return;
@@ -55,6 +64,12 @@
             DestroyPreview();
         }
 
+        /// <summary>
+        /// Checks if the preview can be placed and returns the position and rotation of the preview.
+        /// </summary>
+        /// <param name="previewPosition"> The position of the preview. </param>
+        /// <param name="previewRotation"> The rotation of the preview. </param>
+        /// <returns> True if the preview can be placed, false otherwise. </returns>
         public bool CanPlacePrefab(out Vector3 previewPosition, out Quaternion previewRotation)
         {
             previewPosition = Vector3.zero;
@@ -68,6 +83,11 @@
             return true;
         }
 
+        /// <summary>
+        /// Drags the preview in the scene.
+        /// </summary>
+        /// <param name="sceneCamera"> The camera of the scene. </param>
+        /// <param name="height"> The height of the preview. </param>
         // Do not use Graphics.DrawMeshNow to avoid performance issues
         public void Drag(Camera sceneCamera, float height = 0f)
         {
@@ -96,46 +116,71 @@
 
         #region PREVIEW
 
+        /// <summary>
+        /// Sets the preview rotation.
+        /// </summary>
+        /// <param name="rotation"> The rotation to be set. </param>
         public void SetPreviewRotation(Quaternion rotation)
         {
             if (!_draggedPreview) return;
             _draggedPreview.transform.rotation = rotation;
         }
 
+        /// <summary>
+        /// Rotates the preview by the given angle on the Y axis.
+        /// </summary>
+        /// <param name="angle"> The angle to rotate the preview. </param>
         public void RotatePreview(float angle)
         {
             if (!_draggedPreview) return;
             _draggedPreview.transform.Rotate(Vector3.up, angle);
         }
 
+        /// <summary>
+        /// Instantiates the preview of the room.
+        /// </summary>
+        /// <param name="prefab"> The prefab to be instantiated as a preview. </param>
         private void InstantiatePreview(GameObject prefab)
         {
             _draggedPreview = Object.Instantiate(prefab);
 
+            SetPreviewBounds();
             SetPreviewMaterial();
             SetPreviewCollision(false);
             SetHideFlagsPreview(HideFlags.HideInHierarchy);
         }
+        
+        /// <summary>
+        /// Sets the bounds of the preview.
+        /// </summary>
+        private void SetPreviewBounds()
+        {
+            if (_draggedPreview.TryGetComponent(out Collider collider))
+                _previewBounds = collider.bounds;
+        }
 
+        /// <summary>
+        /// Destroys the preview of the room.
+        /// </summary>
         private void DestroyPreview()
         {
             Object.DestroyImmediate(_draggedPreview);
         }
 
+        /// <summary>
+        /// Sets the material of the preview to the preview material.
+        /// </summary>
         private void SetPreviewMaterial()
         {
             MeshRenderer[] renderers = _draggedPreview.GetComponentsInChildren<MeshRenderer>();
             foreach (MeshRenderer renderer in renderers)
-            {
-                Material mat = new Material(renderer.sharedMaterial);
-                mat.shader = Shader.Find("Transparent/Diffuse");
-                Color color = mat.color;
-                color.a = 0.5f;
-                mat.color = color;
-                renderer.sharedMaterial = mat;
-            }
+                renderer.sharedMaterial = _previewMaterial;
         }
 
+        /// <summary>
+        /// Sets the collision of the preview.
+        /// </summary>
+        /// <param name="isEnabled"> True to enable the collision, false to disable it. </param>
         private void SetPreviewCollision(bool isEnabled)
         {
             Collider[] colliders = _draggedPreview.GetComponentsInChildren<Collider>();
@@ -143,6 +188,10 @@
                 collider.enabled = isEnabled;
         }
 
+        /// <summary>
+        /// Sets the hide flags of the preview.
+        /// </summary>
+        /// <param name="flags"> The hide flags to be set. </param>
         private void SetHideFlagsPreview(HideFlags flags)
         {
             _draggedPreview.hideFlags = flags;
@@ -154,46 +203,57 @@
 
         #region SNAP
 
+        /// <summary>
+        /// Tries to get the snap position of the preview.
+        /// </summary>
+        /// <param name="hit"> The hit of the raycast. </param>
+        /// <param name="position"> The position of the snap. </param>
+        /// <returns> True if the snap position was found, false otherwise. </returns>
         private bool TryGetSnapPosition(RaycastHit hit, out Vector3 position)
         {
             position = Vector3.zero;
             if (!hit.transform.TryGetComponent(out RBSEntrance entrance) || !SnapTool.EnableSnap) return false;
-
-            int angle = Mathf.RoundToInt(
-                Vector3.SignedAngle(entrance.transform.forward, _draggedPreview.transform.forward, Vector3.up)
-            );
-
-            if (CalculatePositionDistanceOnMatching(angle, out Vector3 posDistance))
+            
+            if (TryCalculateEntranceSnapPosition(entrance, out Vector3 snapPosition))
             {
-                position = entrance.transform.position + posDistance;
+                position = snapPosition;
                 return true;
             }
 
             return false;
         }
 
-        private bool CalculatePositionDistanceOnMatching(int angle, out Vector3 posDistance)
+        /// <summary>
+        /// Tries to calculate the snap position of the preview.
+        /// </summary>
+        /// <param name="entrance"> The entrance to snap to. </param>
+        /// <param name="snapPosition"> The snap position of the entrance. </param>
+        /// <returns> True if the snap position was found, false otherwise. </returns>
+        private bool TryCalculateEntranceSnapPosition(RBSEntrance entrance, out Vector3 snapPosition)
         {
-            posDistance = Vector3.zero;
+            snapPosition = Vector3.zero;
+            int angle = Mathf.RoundToInt(
+                Vector3.SignedAngle(entrance.transform.forward, _draggedPreview.transform.forward, Vector3.up)
+            );
             bool hasEntrance = !SnapTool.SnapOnlyOnFacingDoors;
-
+            
             switch (angle)
             {
                 case 0:
-                    posDistance = (_previewBounds.size.z / 2.0f) * _draggedPreview.transform.forward;
+                    snapPosition = entrance.transform.position + (_previewBounds.size.z / 2.0f) * _draggedPreview.transform.forward;
                     hasEntrance |= _currentRoomData.RoomSnap.HasEntranceSouth;
                     break;
                 case 90:
-                    posDistance = -(_previewBounds.size.x / 2.0f) * _draggedPreview.transform.right;
+                    snapPosition = entrance.transform.position + -(_previewBounds.size.x / 2.0f) * _draggedPreview.transform.right;
                     hasEntrance |= _currentRoomData.RoomSnap.HasEntranceEast;
                     break;
                 case -90:
-                    posDistance = (_previewBounds.size.x / 2.0f) * _draggedPreview.transform.right;
+                    snapPosition = entrance.transform.position + (_previewBounds.size.x / 2.0f) * _draggedPreview.transform.right;
                     hasEntrance |= _currentRoomData.RoomSnap.HasEntranceWest;
                     break;
                 case 180:
                 case -180:
-                    posDistance = -(_previewBounds.size.z / 2.0f) * _draggedPreview.transform.forward;
+                    snapPosition = entrance.transform.position + -(_previewBounds.size.z / 2.0f) * _draggedPreview.transform.forward;
                     hasEntrance |= _currentRoomData.RoomSnap.HasEntranceNorth;
                     break;
                 default:
@@ -203,6 +263,12 @@
             return hasEntrance;
         }
 
+        /// <summary>
+        /// Converts a position to a position on a grid for snapping.
+        /// </summary>
+        /// <param name="pos"> The position to be converted. </param>
+        /// <param name="gridSize"> The size of the grid. </param>
+        /// <returns> The position on the grid. </returns>
         private Vector3 GetPositionOnGrid(Vector3 pos, float gridSize)
         {
             return new Vector3(
@@ -212,6 +278,13 @@
             );
         }
 
+        /// <summary>
+        /// Gets the position of the preview on an imaginary plane.
+        /// </summary>
+        /// <param name="sceneCamera"> The camera of the scene. </param>
+        /// <param name="height"> The height of the preview. </param>
+        /// <param name="ray"> The ray to get the direction from. </param>
+        /// <returns> The position on the imaginary plane. </returns>
         private Vector3 GetPositionOnImaginaryPlane(Camera sceneCamera, float height, Ray ray)
         {
             Vector3 pos;
@@ -225,6 +298,10 @@
             return pos;
         }
 
+        /// <summary>
+        /// Draws the handles of the preview.
+        /// </summary>
+        /// <param name="pos"> The position where to draw the handles. </param>
         private void DrawHandles(Vector3 pos)
         {
             Vector3 gridPos = new Vector3(pos.x, 0, pos.z);
@@ -238,6 +315,9 @@
 
         #endregion
 
+        /// <summary>
+        /// Disables the unity scene selection.
+        /// </summary>
         private void DisableSelection()
         {
             Selection.activeGameObject = null;

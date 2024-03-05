@@ -1,24 +1,28 @@
 namespace RBS.Editor.Windows
 {
     using UnityEditor;
+    using UnityEditor.SceneManagement;
     using UnityEngine;
-    using RBS.Editor.Constants;
+    using Config;
     using RBS.Editor.Utility;
     using RBS.Editor.Patterns.StateMachine;
     using RBS.Editor.Tools;
+    using UnityEngine.SceneManagement;
 
     public class RBSEditorWindow : EditorWindow
     {
         private static RBSEditorWindow s_window;
 
         private int _selectedTool;
-
         private RBSStateMachine _editorMachine;
         private RoomsRegisterTool _roomsRegisterTool;
-        private PlacementTool _placement;
+        private PlacementTool _placementTool;
         private SnapTool _snapTool;
         private PresetsTool _presetsTool;
 
+        /// <summary>
+        /// Opens the editor window.
+        /// </summary>
         [MenuItem(RBSConstants.MainWindowMenuItem, false, RBSConstants.RBSWindowMenuItemPriority)]
         public static void OpenWindow()
         {
@@ -27,20 +31,41 @@ namespace RBS.Editor.Windows
             s_window.Show();
         }
 
+        /// <summary>
+        /// Closes the editor window.
+        /// </summary>
+        public static void CloseWindow()
+        {
+            if (s_window)
+                s_window.Close();
+        }
+        
+        /// <summary>
+        /// Restarts the editor window.
+        /// </summary>
+        public static void RestartWindow()
+        {
+            CloseWindow();
+            OpenWindow();
+        }
+
         private void Awake()
         {
             InitMachine();
         }
 
+        /// <summary>
+        /// Initializes the state machine with its states.
+        /// </summary>
         private void InitMachine()
         {
             _editorMachine = new RBSStateMachine();
-            _placement = new PlacementTool(this, RBSConstants.PlacementToolName);
+            _placementTool = new PlacementTool(this, RBSConstants.PlacementToolName);
             _roomsRegisterTool = new RoomsRegisterTool(this, RBSConstants.RoomToolName);
             _snapTool = new SnapTool(this, RBSConstants.SnapToolName);
             _presetsTool = new PresetsTool(this, RBSConstants.PresetsToolName);
-            
-            _editorMachine.States.Add(RBSConstants.PlacementToolName, _placement);
+
+            _editorMachine.States.Add(RBSConstants.PlacementToolName, _placementTool);
             _editorMachine.States.Add(RBSConstants.RoomToolName, _roomsRegisterTool);
             _editorMachine.States.Add(RBSConstants.SnapToolName, _snapTool);
             _editorMachine.States.Add(RBSConstants.PresetsToolName, _presetsTool);
@@ -48,14 +73,21 @@ namespace RBS.Editor.Windows
 
         private void OnEnable()
         {
+            EditorSceneManager.sceneOpened += OnSceneOpened;
             _editorMachine.Start();
         }
 
         private void OnDisable()
         {
+            EditorSceneManager.sceneOpened -= OnSceneOpened;
             _editorMachine.Stop();
         }
 
+        private void OnSceneOpened(Scene scene, OpenSceneMode mode)
+        {
+            RestartWindow();
+        }
+        
         private void OnGUI()
         {
             RBSEditorUtility.DrawSelectionGrid(this, RBSConstants.ToolNames, ref _selectedTool);

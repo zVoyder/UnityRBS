@@ -7,6 +7,7 @@ namespace RBS.Editor.Tools
     using RBS.Editor.Data;
     using RBS.Runtime.Room;
     using RBS.Runtime.Room.Data;
+    using RBS.Editor.Config;
 
     public class PresetsTool : RBSToolBase
     {
@@ -35,6 +36,9 @@ namespace RBS.Editor.Tools
 
         #region GUI
 
+        /// <summary>
+        /// Draws the fields.
+        /// </summary>
         private void DrawFields()
         {
             RBSEditorUtility.DrawBox(Color.black, () =>
@@ -45,6 +49,9 @@ namespace RBS.Editor.Tools
             });
         }
 
+        /// <summary>
+        /// Draws the presets list.
+        /// </summary>
         private void DrawPresetsList()
         {
             RBSEditorUtility.DrawBox(Color.white, () =>
@@ -71,6 +78,9 @@ namespace RBS.Editor.Tools
             });
         }
 
+        /// <summary>
+        /// Draws the preset creator.
+        /// </summary>
         private void DrawPresetCreator()
         {
             RBSEditorUtility.DrawBox(Color.white, () =>
@@ -91,6 +101,9 @@ namespace RBS.Editor.Tools
 
         #endregion
 
+        /// <summary>
+        /// Creates a new preset.
+        /// </summary>
         private void CreatePreset()
         {
             RBSRoom[] rooms = Object.FindObjectsOfType<RBSRoom>();
@@ -101,12 +114,20 @@ namespace RBS.Editor.Tools
             }
         }
 
+        /// <summary>
+        /// Deletes a preset.
+        /// </summary>
+        /// <param name="preset"> The preset to delete. </param>
         private void DeletePreset(RBSPresetData preset)
         {
             RBSIOUtility.DeleteAsset(preset);
             UpdatePresets();
         }
 
+        /// <summary>
+        /// Loads a preset in the scene.
+        /// </summary>
+        /// <param name="preset"> The preset to load. </param>
         private void LoadPreset(RBSPresetData preset)
         {
             if (RBSPrefs.HasInstantiateSamePresetWarning)
@@ -135,6 +156,11 @@ namespace RBS.Editor.Tools
             }
         }
 
+        /// <summary>
+        /// Checks if the preset is already in the scene.
+        /// </summary>
+        /// <param name="preset"> The preset to check. </param>
+        /// <returns> True if the preset is in the scene, false otherwise. </returns>
         private bool CheckIfPresetIsInScene(RBSPresetData preset)
         {
             RBSRoom[] rooms = Object.FindObjectsOfType<RBSRoom>();
@@ -148,6 +174,12 @@ namespace RBS.Editor.Tools
             return true;
         }
 
+        /// <summary>
+        /// Checks if the room is in the given array.
+        /// </summary>
+        /// <param name="rooms"> The rooms array. </param>
+        /// <param name="info"> The room info to check. </param>
+        /// <returns> True if the room is in the array, false otherwise. </returns>
         private bool IsRoomIn(RBSRoom[] rooms, RBSRoomInfo info)
         {
             foreach (RBSRoom room in rooms)
@@ -159,11 +191,19 @@ namespace RBS.Editor.Tools
             return false;
         }
 
+        /// <summary>
+        /// Updates the presets list.
+        /// </summary>
         private void UpdatePresets()
         {
             _presets = RBSIOUtility.GetPresetsData();
         }
 
+        /// <summary>
+        /// Checks if a preset with the given name exists.
+        /// </summary>
+        /// <param name="presetName"> The name of the preset to check. </param>
+        /// <returns> True if the preset exists, false otherwise. </returns>
         private bool HasPreset(string presetName)
         {
             foreach (RBSPresetData preset in _presets)
@@ -175,6 +215,9 @@ namespace RBS.Editor.Tools
             return false;
         }
 
+        /// <summary>
+        /// Guesses a valid name for a preset.
+        /// </summary>
         private void GuessPresetName()
         {
             RBSRoom room = Object.FindObjectOfType<RBSRoom>();

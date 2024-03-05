@@ -9,19 +9,30 @@ namespace RBS.Runtime.Room
     {
         private BoxCollider _snapCollider;
         
-        public void Init(Transform parent, Vector3 position)
+        /// <summary>
+        /// Initializes the entrance.
+        /// </summary>
+        /// <param name="parent"> The parent to initialize the entrance with. </param>
+        /// <param name="position"> The position to initialize the entrance with. </param>
+        /// <param name="size"> The size to initialize the entrance with. </param>
+        public void Init(Transform parent, Vector3 position, Vector3 size)
         {
+            GenerateSnapCollider(size);
             transform.position = position;
-            transform.parent = parent;
+            transform.SetParent(parent, true);
             transform.rotation = Quaternion.LookRotation(transform.position - parent.position);
-            GenerateSnapCollider();
         }
 
-        private void GenerateSnapCollider()
+        /// <summary>
+        /// Generates the snap collider.
+        /// </summary>
+        /// <param name="size"> The size to generate the snap collider with. </param>
+        private void GenerateSnapCollider(Vector3 size)
         {
             _snapCollider = gameObject.AddComponent<BoxCollider>();
             _snapCollider.isTrigger = true;
-            _snapCollider.size = transform.parent.lossyScale / 2f;
+            float variation = Random.Range(size.y / 100, size.y / 80); // Random variation to avoid snapping issues
+            transform.localScale = (size + new Vector3(0, variation, 0)) + transform.lossyScale;
         }
     }
 }

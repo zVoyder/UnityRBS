@@ -8,17 +8,11 @@
         #region EVENTS
 
         public static event Action<Vector2> OnLeftMouseButtonDown;
-
         public static event Action<Vector2> OnRightMouseButtonDown;
-
         public static event Action<float> OnShiftScrollWheel;
-
         public static event Action<float> OnShiftAltScrollWheel;
-
         public static event Action OnShiftRKeyDown;
-
         public static event Action OnShiftFKeyDow;
-
         public static event Action OnSpaceKeyDown;
 
         #endregion EVENTS

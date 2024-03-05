@@ -3,7 +3,8 @@ namespace RBS.Editor.Tools
     using UnityEngine;
     using UnityEditor;
     using RBS.Editor.Tools.Bases;
-    using Utility;
+    using RBS.Editor.Config;
+    using RBS.Editor.Utility;
 
     public class SnapTool : RBSToolBase
     {
@@ -31,6 +32,11 @@ namespace RBS.Editor.Tools
             });
         }
 
+        #region GUI
+
+        /// <summary>
+        /// Draws the fields.
+        /// </summary>
         private void DrawFields()
         {
             EnableSnap = EditorGUILayout.Toggle("Enable Snap", EnableSnap);
@@ -43,5 +49,7 @@ namespace RBS.Editor.Tools
                 RBSPrefs.GridSnapSize = EditorGUILayout.FloatField("Grid Snap Size", RBSPrefs.GridSnapSize);
             });
         }
+
+        #endregion
     }
 }

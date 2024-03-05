@@ -10,6 +10,10 @@ namespace RBS.Editor.Data
     {
         public List<RBSRoomInfo> RoomsList;
 
+        /// <summary>
+        /// Initializes the Preset Data
+        /// </summary>
+        /// <param name="rooms"> The rooms to be added to the preset. </param>
         public void Init(RBSRoom[] rooms)
         {
             RoomsList = new List<RBSRoomInfo>();
