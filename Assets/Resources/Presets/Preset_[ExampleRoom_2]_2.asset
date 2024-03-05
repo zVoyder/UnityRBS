@@ -1,0 +1,63 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 722364c7cfd74bb88ea5cc8499e0fe78, type: 3}
+  m_Name: Preset_[ExampleRoom_2]_2
+  m_EditorClassIdentifier: 
+  RoomsList:
+  - RoomName: ExampleRoom_2
+    RoomData: {fileID: 11400000, guid: cda25670674594b4f8f5fe1c4f2d59fa, type: 2}
+    Position: {x: 7.6241693, y: 8, z: 33.681263}
+    Rotation: {x: -0, y: -0.7071069, z: -0, w: 0.70710665}
+  - RoomName: ExampleRoom_0
+    RoomData: {fileID: 11400000, guid: 662ad72a7f1492e448947c906a34ea9b, type: 2}
+    Position: {x: -5.2808704, y: 0, z: 15.882957}
+    Rotation: {x: -0, y: -1, z: -0, w: -0.0000004321337}
+  - RoomName: ExampleRoom_1
+    RoomData: {fileID: 11400000, guid: 1358b5deb2c123f429275ecbb4079d97, type: 2}
+    Position: {x: -5.302978, y: 0.0000009536743, z: 4.670341}
+    Rotation: {x: -0, y: -0, z: -0, w: 1}
+  - RoomName: ExampleRoom_2
+    RoomData: {fileID: 11400000, guid: cda25670674594b4f8f5fe1c4f2d59fa, type: 2}
+    Position: {x: 4.410348, y: 0, z: 14.249894}
+    Rotation: {x: -0, y: -0.5000001, z: -0, w: 0.8660254}
+  - RoomName: ExampleRoom_2
+    RoomData: {fileID: 11400000, guid: cda25670674594b4f8f5fe1c4f2d59fa, type: 2}
+    Position: {x: 5.647691, y: 0, z: 16.393038}
+    Rotation: {x: -0, y: -0.5000001, z: -0, w: 0.8660254}
+  - RoomName: ExampleRoom_2
+    RoomData: {fileID: 11400000, guid: cda25670674594b4f8f5fe1c4f2d59fa, type: 2}
+    Position: {x: 6.8850336, y: 0, z: 18.53618}
+    Rotation: {x: -0, y: -0.5000001, z: -0, w: 0.8660254}
+  - RoomName: ExampleRoom_4
+    RoomData: {fileID: 11400000, guid: 82ee67c63abdc7f469cf7ce8dbbe2692, type: 2}
+    Position: {x: 15.906563, y: 0, z: 4.9573355}
+    Rotation: {x: -0, y: -0.000000029802322, z: -0, w: 1}
+  - RoomName: ExampleRoom_0
+    RoomData: {fileID: 11400000, guid: 662ad72a7f1492e448947c906a34ea9b, type: 2}
+    Position: {x: -7.740768, y: 8, z: 33.68126}
+    Rotation: {x: -0, y: -0.7071065, z: -0, w: -0.70710707}
+  - RoomName: ExampleRoom_1
+    RoomData: {fileID: 11400000, guid: 1358b5deb2c123f429275ecbb4079d97, type: 2}
+    Position: {x: -2.0638695, y: 8, z: 33.681263}
+    Rotation: {x: -0, y: 0.7071069, z: -0, w: 0.70710665}
+  - RoomName: ExampleRoom_2
+    RoomData: {fileID: 11400000, guid: cda25670674594b4f8f5fe1c4f2d59fa, type: 2}
+    Position: {x: 2.0119228, y: 8, z: 33.681263}
+    Rotation: {x: -0, y: -0, z: -0, w: 1}
+  - RoomName: ExampleRoom_4
+    RoomData: {fileID: 11400000, guid: 82ee67c63abdc7f469cf7ce8dbbe2692, type: 2}
+    Position: {x: 20.131512, y: 8, z: 33.681263}
+    Rotation: {x: -0, y: 0.000000029802322, z: -0, w: 1}
+  - RoomName: ExampleRoom_3
+    RoomData: {fileID: 11400000, guid: e67c0e83f0b081049a02e11085158a80, type: 2}
+    Position: {x: 7.4191294, y: 8, z: 40.71173}
+    Rotation: {x: -0, y: 1, z: -0, w: -0.00000032782557}

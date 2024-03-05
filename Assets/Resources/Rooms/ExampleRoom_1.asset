@@ -13,11 +13,8 @@ MonoBehaviour:
   m_Name: ExampleRoom_1
   m_EditorClassIdentifier: 
   RoomSnap:
-    HasEntranceNorth: 0
+    HasEntranceNorth: 1
     HasEntranceEast: 0
-    HasEntranceSouth: 0
+    HasEntranceSouth: 1
     HasEntranceWest: 0
   RoomPrefab: {fileID: 3950348057672648221, guid: ae9702d2a2b394b42b6b65e867d13700, type: 3}
-  EntrancePositions:
-  - {x: 0, y: 0, z: 0}
-  - {x: 10, y: 0, z: 10}

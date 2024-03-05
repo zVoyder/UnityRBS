@@ -146,6 +146,12 @@
       },
       "url": "https://packages.unity.com"
     },
+    "com.voydergames.room-builder-system": {
+      "version": "file:RoomBuilderSystem",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {}
+    },
     "com.unity.modules.ai": {
       "version": "1.0.0",
       "depth": 0,
