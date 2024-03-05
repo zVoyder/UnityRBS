@@ -23,7 +23,7 @@
         public const string MainWindowName = "RoomBuilder";
         #endregion
 
-        #region MenuItems
+        #region MENU ITEMS
         public const string MainMenuItem = "Tools/" + MainWindowName + "/";
         public const string ActionsMenuItem = MainMenuItem + "Actions/";
         public const string MainWindowMenuItem = MainMenuItem + MainWindowName + " Window";
