@@ -6,7 +6,6 @@
     public class RBSStateMachine
     {
         public Dictionary<string, RBSState> States { get; protected set; } = new Dictionary<string, RBSState>();
-
         public RBSState CurrentState { get; private set; }
 
         /// <summary>
